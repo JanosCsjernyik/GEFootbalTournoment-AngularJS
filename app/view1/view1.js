@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -8,7 +11,8 @@ angular.module('myApp.view1', ['ngRoute'])
     controller: 'View1Ctrl'
   });
 }])
-
-.controller('View1Ctrl', [function() {
-
+.controller('View1Ctrl', ['$scope', 'players', 'teams', function( $scope, players, teams ) {
+    teams.getTeams().then(function(teams){
+      $scope.teams = teams;
+    })
 }]);
