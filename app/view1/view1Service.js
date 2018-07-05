@@ -7,7 +7,7 @@ var teamNames = ["Franciaország", 'Argentína', "Uruguay", "Portugália", "Span
 var view1Service = angular.module('view1Service', ['ngResource']);
 
 
-view1Service.factory('players', ['$resource',
+view1Service.factory('playersService', ['$resource',
   function($resource){
     return $resource('https://randomuser.me/api/?results=176', {
       query: {method:'GET'}
@@ -15,12 +15,12 @@ view1Service.factory('players', ['$resource',
   }]);
 
 
-  view1Service.factory('teams', ['players','$q', function(players, $q) {
+  view1Service.factory('teamsService', ['playersService','$q', function(playersService, $q) {
     return {
       getTeams : function(){
-        var deferred = $q.defer();
+        //var deferred = $q.defer();
         var teams = [];
-        players.get(function(playersJson){
+        playersService.get(function(playersJson){
           for(let name of teamNames){
             let winningChance = getRandomInt(0, 100);
             let randomTeam = { teamName:name , players:[], winningChance: winningChance, goalsShot: 0 };
