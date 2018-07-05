@@ -9,20 +9,20 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 .controller('View1Ctrl', ['$scope', 'teamsService', function( $scope, teamsService ) {
+    $scope.teams = null;
     teamsService.getTeams().then(function(teams){
-    $scope.teams = teams;
-     $scope.teamPairs = $scope.generatePairs(teams);
+      $scope.teams = teams;
+      $scope.team = teams[0];
+      console.log("scopeTeams:", $scope.teams)
       console.log("len of scope teams: ", teams.length);
+      console.log("scope team: ",$scope.team);
+      $scope.$watch('team', function(newValue){
+        console.log(newValue);
+      })
      /* $scope.teamPairs = $interval(function generateTeamPairs() {
   
       }, 5000, 4) */ 
     })
-
-    /*teams.getTeams().then(function(teams){
-      console.log("teams: ",teams);
-      $scope.teamPairs = generatePairs(teams);
-      console.log("teamPairs: ", $scope.teamPairs);
-    }) */
 
     $scope.generatePairs = function(teams) {
       console.log("generate in generatePairs: ", teams);

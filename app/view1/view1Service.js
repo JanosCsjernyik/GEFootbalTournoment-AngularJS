@@ -4,44 +4,40 @@ var teamNames = ["Franciaország", 'Argentína', "Uruguay", "Portugália", "Span
             "Horvátország", "Dánia", "Brazília", "Mexikó", "Belgium", "Japán", "Svédország", "Svájc",
              "Kolumbia", "Anglia"];
 
-var view1Service = angular.module('view1Service', ['ngResource']);
+var view1ServiceModule = angular.module('view1ServiceModule', ['ngResource']);
 
 
-view1Service.factory('playersService', ['$resource',
+view1ServiceModule.service('playersService', ['$resource',
   function($resource){
-    return $resource('https://randomuser.me/api/?results=176', {
-      query: {method:'GET'}
-    });
+    var getPlayers = function() {
+      return $resource('https://randomuser.me/api/?results=176', {
+          query: {method:'GET'}
+      });
+    }
+    return {
+      getPlayers : getPlayers
+    }
   }]);
 
 
-  view1Service.factory('teamsService', ['playersService','$q', function(playersService, $q) {
-    return {
-      getTeams : function(){
-        //var deferred = $q.defer();
-        var teams = [];
-        playersService.get(function(playersJson){
+  view1ServiceModule.service('teamsService', ['playersService', function(playersService) {
+    var getTeams = function(){
+      var teams = [];
+      return new Promise(function(resolve){
+        playersService.getPlayers().get().$promise.then(function(playersJson){
           for(let name of teamNames){
-            let winningChance = getRandomInt(0, 100);
-            let randomTeam = { teamName:name , players:[], winningChance: winningChance, goalsShot: 0 };
+            let randomTeam = { teamName:name , players:[], goalsShot: 0 };
             teams.push(randomTeam);
           }
           fillTeamsWithPlayers(teams,playersJson);
-          deferred.resolve(teams);
+          resolve(teams);
         });
-        return $q.when(teams);
-      }
+      })
+    }
+    return {
+      getTeams : getTeams
     }
   }])
-
-
-function generateTeams(arrayOfteams){
-  for(let name of teamNames){
-    let winningChance = getRandomInt(0, 100);
-    let randomTeam = { teamName:name , players:[], winningChance: winningChance, goalsShot: 0 };
-    teams.push(randomTeam);
-  }
-}
 
 function fillTeamsWithPlayers(teams, playersJson){
   var helperIndex = 0;
@@ -51,8 +47,4 @@ function fillTeamsWithPlayers(teams, playersJson){
       helperIndex++;
     }
   }
-}
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -6,7 +6,7 @@ var tournoment = angular.module('myApp', [
   'myApp.view1',
   'myApp.view2',
   'myApp.version',
-  'view1Service'
+  'view1ServiceModule'
 ]);
 
 
