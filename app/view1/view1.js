@@ -1,5 +1,11 @@
 'use strict';
 
+var teamNames = ["Franciaország", 'Argentína', "Uruguay", "Portugália", "Spanyolország", "Oroszország", 
+            "Horvátország", "Dánia", "Brazília", "Mexikó", "Belgium", "Japán", "Svédország", "Svájc",
+             "Kolumbia", "Anglia"];
+
+
+
 angular.module('myApp.view1', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -8,30 +14,34 @@ angular.module('myApp.view1', ['ngRoute'])
     controller: 'View1Ctrl'
   });
 }])
-.controller('View1Ctrl', ['$scope', 'teamsService', function( $scope, teamsService ) {
-    $scope.teams = null;
-    teamsService.getTeams().then(function(teams){
-      $scope.teams = teams;
-      $scope.team = teams[0];
-      console.log("scopeTeams:", $scope.teams)
-      console.log("len of scope teams: ", teams.length);
-      console.log("scope team: ",$scope.team);
-      $scope.$watch('team', function(newValue){
-        console.log(newValue);
-      })
-     /* $scope.teamPairs = $interval(function generateTeamPairs() {
-  
-      }, 5000, 4) */ 
-    })
+.controller('View1Ctrl', ['$scope','playersService', function( $scope, playersService ) {
 
-    $scope.generatePairs = function(teams) {
-      console.log("generate in generatePairs: ", teams);
+    playersService.getPlayers().get(function(playersJson){
+      var teams = [];
+      for(let name of teamNames){
+        let randomTeam = { teamName:name , players:[], goalsShot: 0 };
+        teams.push(randomTeam);
+      }
+      fillTeamsWithPlayers(teams,playersJson);
+      $scope.teams = teamNames;
+      $scope.teamPairs = generatePairs(teams);
+      
+    })
+    
+    function fillTeamsWithPlayers(teams, playersJson){
+      var helperIndex = 0;
+      for (let i = 0; i < teams.length; i++){
+        for(let y = 0; y < 11; y++){
+          teams[i].players.push(playersJson.results[helperIndex].name.first + " " + playersJson.results[helperIndex].name.last);
+          helperIndex++;
+        }
+      }
+    }
+
+    function generatePairs (teams) {
       let arr1 = teams;
-      console.log("arr1: ",arr1);
       let teamPairs = [];
-      arr1.sort(function() { return 0.5 - Math.random();});
-      console.log("arr1 shuffeled: ", arr1); // shuffle arrays
-      console.log("arr1: ", arr1 ," arr1.len: " ,arr1.length);
+      arr1.sort(function() { return 0.5 - Math.random();}); // shuffle arrays
       while (arr1.length) {
           console.log("while");
           var team1 = arr1.pop(),
