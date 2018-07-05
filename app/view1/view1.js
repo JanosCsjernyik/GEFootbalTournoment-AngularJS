@@ -14,7 +14,7 @@ angular.module('myApp.view1', ['ngRoute'])
     controller: 'View1Ctrl'
   });
 }])
-.controller('View1Ctrl', ['$scope','playersService', function( $scope, playersService ) {
+.controller('View1Ctrl', ['$scope','playersService','$interval', function( $scope,$interval, playersService ) {
 
     playersService.getPlayers().get(function(playersJson){
       var teams = [];
@@ -25,9 +25,8 @@ angular.module('myApp.view1', ['ngRoute'])
       fillTeamsWithPlayers(teams,playersJson);
       $scope.teams = teamNames;
       $scope.teamPairs = generatePairs(teams);
-      
     })
-    
+
     function fillTeamsWithPlayers(teams, playersJson){
       var helperIndex = 0;
       for (let i = 0; i < teams.length; i++){
@@ -42,12 +41,15 @@ angular.module('myApp.view1', ['ngRoute'])
       let arr1 = teams;
       let teamPairs = [];
       arr1.sort(function() { return 0.5 - Math.random();}); // shuffle arrays
+      var helperIndex = 0;
       while (arr1.length) {
-          console.log("while");
           var team1 = arr1.pop(),
               team2 = arr1.pop();
-        
-          let addToPairs = [team1, team2];
+          let addToPairs = {
+            team1 : team1,
+            team2 : team2,
+            round : "4"
+          };
           teamPairs.push(addToPairs);
       }
       console.log("teamPairs end of the function: ", teamPairs);

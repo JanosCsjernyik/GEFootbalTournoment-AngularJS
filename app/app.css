@@ -1,9 +1,6 @@
-
-$blue: #589ea5;
-
-
-body {
-  background-color: gray;
+#myBody {
+  background-color: rgb(114, 117, 109);
+  height: 100%;
   font-family: system-ui;
 }
 
@@ -33,7 +30,7 @@ button {
 }
 
 .teamInRounds {
-  border: 2px solid $blue;
+  border: 2px solid #589ea5;
   margin: 2px;
   padding: 2px;
   border-radius: 3px;
