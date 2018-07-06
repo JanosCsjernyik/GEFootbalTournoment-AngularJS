@@ -7,20 +7,14 @@
       </div>
     </div>
 
-  <ul>
-    <li ng-repeat="pairs in teamPairs">
-      <div ng-if="pairs.round == 4">
-        {{ pairs.team1.teamName }}
-        {{ pairs.team2.teamName }}
-      </div>
-    </li>
-  </ul>
-
   <div class="row justify-content-md-center align-items-center">
       <div class="col" id="8th">
-        <div class="teamPair">
-            <div class="teamInRounds" data-toggle="popover" title="" data-html="true" ng-repeat="pairs in teamPairs">
+        <div class="teamPair" ng-repeat="pairs in teamPairs" ng-if="pairs.round == 8">
+            <div class="teamInRounds" data-toggle="popover" title="players" data-html="true">
                 {{ pairs.team1.teamName }}
+            </div>
+            <div class="teamInRounds" data-toggle="popover" title="players" data-html="true">
+                {{ pairs.team2.teamName }}
             </div>
         </div>
       </div>
