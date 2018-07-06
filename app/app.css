@@ -1,5 +1,5 @@
 #myBody {
-  background-color: rgb(114, 117, 109);
+  background-color: rgb(138, 133, 133);
   height: 100%;
   font-family: system-ui;
 }
@@ -26,7 +26,6 @@ button {
   padding: 5px;
   margin : 15px;
   border-radius: 3px;
-  
 }
 
 .teamInRounds {

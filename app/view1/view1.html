@@ -15,4 +15,18 @@
       </div>
     </li>
   </ul>
+
+  <div class="row justify-content-md-center align-items-center">
+      <div class="col" id="8th">
+        <div class="teamPair">
+            <div class="teamInRounds" data-toggle="popover" title="" data-html="true" ng-repeat="pairs in teamPairs">
+                {{ pairs.team1.teamName }}
+            </div>
+        </div>
+      </div>
+      <div class="col" id="4th"></div>
+      <div class="col" id="2th"></div>
+      <div class="col" id="1th"></div>
+      <div class="col" id="winner"></div>
+    </div>
 </div>

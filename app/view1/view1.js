@@ -14,7 +14,7 @@ angular.module('myApp.view1', ['ngRoute'])
     controller: 'View1Ctrl'
   });
 }])
-.controller('View1Ctrl', ['$scope','playersService','$interval', function( $scope,$interval, playersService ) {
+.controller('View1Ctrl', ['$scope','playersService','$interval', function( $scope, playersService, $interval ) {
 
     playersService.getPlayers().get(function(playersJson){
       var teams = [];
