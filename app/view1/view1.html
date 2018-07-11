@@ -1,78 +1,27 @@
 <div id="view1Wrapper">
+
   <div class="container">
-      <div class="row" id="teams" >
-        <div ng-repeat="team in teams" class="col-sm-3">
-          {{team}}
-        </div>
+
+    <div class="row" id="teams" >
+      <div ng-repeat="team in teams" class="col-sm-3">
+        {{team}}
       </div>
+    </div>
+
   </div>
     
   <button type="button" class="btn btn-primary" ng-click="controllGame()" ng-disabled="disableButton">{{ button }}</button>
+
   <button type="button" class="btn btn-dark" ng-click="resetGame()" ng-disabled="!disableButton">Reset Game</button>  
 
-  <div class="row justify-content-md-center align-items-center">
-      <div class="col">
-        <div class="teamPair" ng-repeat="pairs in matchups[0]" ng-if="matchups[0]">
-            <div class="teamInRounds">
-               <div  data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team1.players">{{ pairs.team1.teamName }}
-                 <span class="goal">{{ pairs.team1.goalsShot }}</span>
-                </div>
-            </div>
-            <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team2.players">
-              <div>{{ pairs.team2.teamName }}
-                  <span class="goal">{{ pairs.team2.goalsShot }}</span>
-              </div>
-            </div>       
+  <div class="row align-items-center" >
+      <div class="col-3" ng-repeat="pairs in matchups">
+        <div class="teamPair" ng-repeat="pair in pairs">
+
+          <group pair="pair"></group>
+
         </div>
       </div>
-      <div class="col">
-        <div class="teamPair" ng-repeat="pairs in matchups[1]" ng-if="matchups[1]">
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team1.players">
-            <div>{{ pairs.team1.teamName }} 
-                <span class="goal">{{ pairs.team1.goalsShot }}</span>
-            </div>
-          </div>
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team2.players">
-              <div>{{ pairs.team2.teamName }}
-                  <span class="goal">{{ pairs.team2.goalsShot }}</span>                
-              </div>
-          </div>
-      </div>
-      </div>
-      <div class="col">
-        <div class="teamPair" ng-repeat="pairs in matchups[2]" ng-if="matchups[2]" ng-attr-data-content="pairs.team2.players">
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true">
-            <div>{{ pairs.team1.teamName }}
-                <span class="goal">{{ pairs.team1.goalsShot }}</span>                              
-            </div>
-          </div>
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team2.players">
-              <div>{{ pairs.team2.teamName }}
-                  <span class="goal">{{ pairs.team2.goalsShot }}</span>                                              
-              </div>
-          </div>
-      </div>
-      </div>
-      <div class="col">
-        <div class="teamPair" ng-repeat="pairs in matchups[3]" ng-if="matchups[3]">
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team1.players">
-              <div>{{ pairs.team1.teamName }}
-                  <span class="goal">{{ pairs.team1.goalsShot }}</span>                                                              
-              </div>
-          </div>
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="pairs.team2.players">
-              <div>{{ pairs.team2.teamName }} 
-                  <span class="goal">{{ pairs.team2.goalsShot }}</span>                                                              
-              </div>
-          </div>
-      </div>
-      </div>
-      <div class="col">
-        <div class="teamPair"  ng-if="winner">
-          <div class="teamInRounds" data-toggle="popover" title="players" data-html="true" ng-attr-data-content="winner.players">
-              <div>{{ winner }}</div>
-          </div>
-      </div>
-      </div>
-    </div>
+  </div>
+
 </div>

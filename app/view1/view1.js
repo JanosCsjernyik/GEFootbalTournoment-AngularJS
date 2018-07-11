@@ -49,7 +49,7 @@ angular.module('myApp.view1', ['ngRoute'])
             $scope.matchups.push($scope.generatePairs(teams));
           }
           $scope.gameState = "run";
-          promise = $interval($scope.generateMatchups, 3000);
+          promise = $interval($scope.generateMatchups, 300);
           $scope.disablePopover();
           $scope.button = "Stop Game";
         } else { 
@@ -128,7 +128,10 @@ angular.module('myApp.view1', ['ngRoute'])
 
   $scope.generateMatchups = function() {
     if ($scope.matchups.length === 4){
-      $scope.winner = $scope.pickWinnersFromMatches($scope.matchups[3][0]).teamName;
+      let winner = $scope.pickWinnersFromMatches($scope.matchups[3][0]).teamName;
+      let winnerObject = {
+        team1 : winner
+      }
       $interval.cancel(promise);
       $scope.disableButton = true;
       return;

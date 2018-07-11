@@ -2,11 +2,11 @@
 
 // Declare app level module which depends on views, and components
 var tournoment = angular.module('myApp', [
-  'ngRoute',
   'myApp.view1',
   'myApp.view2',
   'myApp.version',
-  'view1ServiceModule'
+  'view1ServiceModule',
+  'myApp.groupDirective'
 ]);
 
 
