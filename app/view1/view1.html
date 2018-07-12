@@ -10,18 +10,19 @@
 
   </div>
     
-  <button type="button" class="btn btn-primary" ng-click="controllGame()" ng-disabled="disableButton">{{ button }}</button>
+  <button type="button" class="btn btn-primary" ng-click="controlGame()" ng-disabled="disableButton">{{ button }}</button>
 
   <button type="button" class="btn btn-dark" ng-click="resetGame()" ng-disabled="!disableButton">Reset Game</button>  
 
   <div class="row align-items-center" >
-      <div class="col-3" ng-repeat="pairs in matchups">
-        <div class="teamPair" ng-repeat="pair in pairs">
+    
+    <div class="col-3" ng-repeat="pairs in matches">
+      <div class="teamPair" ng-repeat="pair in pairs">
 
-          <group pair="pair"></group>
+        <group pair="pair"></group>
 
-        </div>
       </div>
+    </div>
   </div>
 
 </div>

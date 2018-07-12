@@ -13,22 +13,10 @@ angular.module('myApp.view1', ['ngRoute'])
     "Horvátország", "Dánia", "Brazília", "Mexikó", "Belgium", "Japán", "Svédország", "Svájc",
     "Kolumbia", "Anglia"];
 
-    $scope.matchups = [];
+    $scope.matches = [];
     var promise;
 
     playersService.getPlayers().get(function(playersJson){
-
-      $scope.enablePopover = function() {
-        $(function () {
-          $('[data-toggle="popover"]').popover('enable');
-        });
-      }
-      
-      $scope.disablePopover = function() {
-        $(function () {
-          $('[data-toggle="popover"]').popover('disable');
-        });
-      }
 
       const teams = [];
       for(let name of $scope.teamNames) {
@@ -42,15 +30,13 @@ angular.module('myApp.view1', ['ngRoute'])
       $scope.gameState = "stopped";
       $scope.button = "Start Game";
 
-      $scope.controllGame = function() {
+      $scope.controlGame = function() {
         if ($scope.gameState === "stopped") {
-          if ($scope.matchups.length === 0) {
-            $scope.enablePopover();
-            $scope.matchups.push($scope.generatePairs(teams));
+          if ($scope.matches.length === 0) {
+            $scope.matches.push($scope.generatePairs(teams));
           }
           $scope.gameState = "run";
-          promise = $interval($scope.generateMatchups, 300);
-          $scope.disablePopover();
+          promise = $interval($scope.generateMatches, 300);
           $scope.button = "Stop Game";
         } else { 
           $scope.button = "Start Game";
@@ -61,14 +47,13 @@ angular.module('myApp.view1', ['ngRoute'])
 
       $scope.resetGame = function() {
         $scope.winner = null;
-        $scope.matchups.length = 0;
+        $scope.matches.length = 0;
 
         for(let name of $scope.teamNames){
           let randomTeam = { teamName:name , players:[], goalsShot: 0 };
           teams.push(randomTeam);
         }
         $scope.fillTeamsWithPlayers(teams,playersJson);
-
         $scope.disableButton = false;
         $scope.gameState = "stopped";
         $scope.button = "Start Game";
@@ -126,9 +111,9 @@ angular.module('myApp.view1', ['ngRoute'])
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  $scope.generateMatchups = function() {
-    if ($scope.matchups.length === 4){
-      let winner = $scope.pickWinnersFromMatches($scope.matchups[3][0]).teamName;
+  $scope.generateMatches = function() {
+    if ($scope.matches.length === 4){
+      let winner = $scope.pickWinnersFromMatches($scope.matches[3][0]).teamName;
       let winnerObject = {
         team1 : winner
       }
@@ -138,7 +123,7 @@ angular.module('myApp.view1', ['ngRoute'])
     }
 
     var arrayOfWinners = [];
-    for (let teamPair of $scope.matchups[$scope.matchups.length - 1]){
+    for (let teamPair of $scope.matches[$scope.matches.length - 1]){
       let winner = Object.assign({}, $scope.pickWinnersFromMatches(teamPair));
       arrayOfWinners.push(winner);
     }
@@ -153,7 +138,7 @@ angular.module('myApp.view1', ['ngRoute'])
       };
       nextRound.push(newMatch);  
     }
-    $scope.matchups.push(nextRound)    
-    $scope.teamPairs = $scope.matchups;
+    $scope.matches.push(nextRound)    
+    $scope.teamPairs = $scope.matches;
   }
 }]);
