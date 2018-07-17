@@ -59,7 +59,7 @@ view1ServiceModule.service('logicService', [
         let generatePairs = function(teams) {
             let arr1 = teams;
             let teamPairs = [];
-            arr1.sort(function() { return 0.5 - Math.random();}); // shuffle arrays
+            arr1.sort(()=>  0.5 - Math.random());
             while (arr1.length) {
                 let team1 = arr1.pop(),
                     team2 = arr1.pop();

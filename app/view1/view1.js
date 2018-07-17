@@ -47,7 +47,7 @@ angular.module('myApp.view1', ['ngRoute'])
         $scope.button = "Start Game";
     }
 
-  $scope.generateMatches = function() {
+    $scope.generateMatches = function() {
     if ($scope.matches.length === 4){
       $interval.cancel(promise);
       $scope.disableButton = true;
