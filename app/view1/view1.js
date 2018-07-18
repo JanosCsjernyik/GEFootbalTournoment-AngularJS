@@ -8,14 +8,14 @@ angular.module('myApp.view1', ['ngRoute'])
     controller: 'View1Ctrl'
   });
 }])
-.controller('View1Ctrl', ['$scope','playersService','$interval', 'teamService','logicService', function( $scope, playersService, $interval, teamService, logicService ) {
+.controller('View1Ctrl', ['$scope','$interval', 'playersService', 'teamService', 'logicService', function( $scope, $interval, playersService,  teamService, logicService ) {
     $scope.teamNames = teamService.getTeamNames();
     $scope.matches = [];
     let promise;
 
     playersService.getPlayers().get(function(playersJson){
         let teams = teamService.generateTeamObjects();
-        initGame(teams, playersJson);
+        $scope.initGame(teams, playersJson);
         $scope.controlGame = function() {
             if ($scope.gameState === "stopped") {
                 if ($scope.matches.length === 0) {
@@ -30,24 +30,23 @@ angular.module('myApp.view1', ['ngRoute'])
                 $interval.cancel(promise);
             }
         };
-
-      $scope.resetGame = function() {
-        $scope.winner = null;
-        $scope.matches.length = 0;
-        teams = teamService.generateTeamObjects();
-        initGame(teams, playersJson);
-      }
+        $scope.resetGame = function () {
+            $scope.winner = null;
+            $scope.matches.length = 0;
+            teams = teamService.generateTeamObjects();
+            $scope.initGame(teams, playersJson);
+        }
     });
 
-    function initGame(teams, playersJson) {
+    $scope.initGame = function (teams, playersJson) {
         logicService.fillTeamsWithPlayers(teams, playersJson);
         $scope.teams = $scope.teamNames;
         $scope.disableButton = false;
         $scope.gameState = "stopped";
         $scope.button = "Start Game";
-    }
+    };
 
-    $scope.generateMatches = function() {
+    $scope.generateMatches = function () {
     if ($scope.matches.length === 4){
       $interval.cancel(promise);
       $scope.disableButton = true;

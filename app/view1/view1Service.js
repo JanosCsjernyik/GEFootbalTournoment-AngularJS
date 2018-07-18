@@ -21,7 +21,6 @@ view1ServiceModule.service('teamService', [
                 "Kolumbia", "Anglia"];
             return teamNames;
         };
-
         let generateTeamObjects = function () {
             const teams = [];
             for(let name of getTeamNames()) {
